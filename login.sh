@@ -6,10 +6,6 @@
 enable=$(uci get suselogin.@login[0].enable)
 [ $enable -eq 0 ] && exit 0
 
-if [ "$ACTION" = ifdown ]; then  # Place in /etc/hotplug.d/iface
-	exit 0
-fi
-
 interval=$(($(uci get suselogin.@login[0].interval)*60))
 
 if [ -f /tmp/log/suselogin/last_time ]; then
