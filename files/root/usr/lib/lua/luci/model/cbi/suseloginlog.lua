@@ -5,7 +5,9 @@
 local fs = require "nixio.fs"
 local conffile = "/tmp/log/suselogin/suselogin.log"
 
-f = SimpleForm("logview")
+f = SimpleForm("logview", translate("日志"), translate("脚本执行的间隔时间不是精准的，两次检测之间的间隔时间会有 ±5 分钟的误差"))
+f.reset = false
+f.submit = false
 
 t = f:field(TextValue, "conf")
 t.rmempty = true
