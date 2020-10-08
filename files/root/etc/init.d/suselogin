@@ -13,7 +13,6 @@ start()
 	fi
 
 	rm -rf /tmp/log/suselogin/login.log
-	echo -n "$(date +%s)" > /tmp/log/suselogin/last_time
 
     enable=$(uci get suselogin.@login[0].enable)
 	if [ $enable -eq 0 ]; then
@@ -35,6 +34,7 @@ start()
 	captiveReturnCode=`curl -s -I -m 10 -o /dev/null -s -w %{http_code} http://www.google.cn/generate_204`
 	if [ "$captiveReturnCode" = "204" ]; then
 		echo "$(date "+%Y-%m-%d %H:%M:%S"): 您已连接到网络!" >> /tmp/log/suselogin/suselogin.log
+		echo -n "$(date +%s)" > /tmp/log/suselogin/last_time
 	else
 		# Get referer page
 		refererPage=`curl -s "http://www.google.cn/generate_204" | awk -F \' '{print $2}'`
@@ -66,9 +66,13 @@ start()
 		captiveReturnCode=`curl -s -I -m 10 -o /dev/null -s -w %{http_code} http://www.google.cn/generate_204`
 		if [ "$captiveReturnCode" = "204" ]; then
 			echo "$(date "+%Y-%m-%d %H:%M:%S"): 登录成功!" >> /tmp/log/suselogin/suselogin.log
+			ntpd -n -q -p ntp1.aliyun.com  # 登录成功后校准时间
+			wait  # 等待校准完毕
+			echo -n "$(date +%s)" > /tmp/log/suselogin/last_time
 		else
 			echo -n "$(date "+%Y-%m-%d %H:%M:%S"): 登录失败,错误信息: " >> /tmp/log/suselogin/suselogin.log
 			echo "$(cat /tmp/log/suselogin/login.log)" >> /tmp/log/suselogin/suselogin.log
+			echo -n "$(date +%s)" > /tmp/log/suselogin/last_time
 		fi
 	fi
 

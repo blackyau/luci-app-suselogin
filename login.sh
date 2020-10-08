@@ -6,11 +6,12 @@
 enable=$(uci get suselogin.@login[0].enable)
 [ $enable -eq 0 ] && exit 0
 
-interval=$(($(uci get suselogin.@login[0].interval)*60))
+interval=$(($(uci get suselogin.@login[0].interval)*60))  # 换成秒,方便后面的判断
 
-if [ -f /tmp/log/suselogin/last_time ]; then
-	differ=$(($(date +%s) - $(cat /tmp/log/suselogin/last_time)))
-	if [ $differ -le $interval ];then
+if [ -f /tmp/log/suselogin/last_time ]; then  # 上一次执行时间是否存在
+	differ=$(($(date +%s) - $(cat /tmp/log/suselogin/last_time) + 30))  # 用当前时间减上一次执行的时间(距离上一次执行多长时间)
+	# + 30 为了消除时间误差， 程序执行需要一点时间，不然就错过了下一次 crontab 的时间
+	if [ $differ -le $interval ];then  # 上一次执行时间 < 间隔时间
 		exit 0
 	fi
 else
@@ -56,6 +57,8 @@ fi
 captiveReturnCode=`curl -s -I -m 10 -o /dev/null -s -w %{http_code} http://www.google.cn/generate_204`
 if [ "$captiveReturnCode" = "204" ]; then
 	echo "$(date "+%Y-%m-%d %H:%M:%S"): 登录成功!" >> /tmp/log/suselogin/suselogin.log
+	ntpd -n -q -p ntp1.aliyun.com  # 登录成功后校准时间
+	wait  # 等待校准完毕
 	echo -n "$(date +%s)" > /tmp/log/suselogin/last_time
 	exit 0
 else
