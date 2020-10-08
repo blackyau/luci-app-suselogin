@@ -23,7 +23,39 @@ opkg update
 opkg install curl
 ```
 
-## 手动编译
+## 单独编译IPK
+
+先准备好环境 Ubuntu 18 LTS x64 ，安装编译环境的依赖
+
+```shell
+sudo apt-get update
+sudo apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 python2.7 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler g++-multilib antlr3 gperf wget curl swig rsync
+```
+
+下载 `lede`/`OpenWrt` 和 `luci-app-suselogin` 源码并进入编译配置菜单
+
+```shell
+git clone https://github.com/coolsnowwolf/lede
+cd lede
+./scripts/feeds update -a
+./scripts/feeds install -a
+git clone https://github.com/blackyau/luci-app-suselogin.git package/luci-app-suselogin
+make menuconfig
+```
+
+在 make menuconfig 里面选好自己的机型，然后将 LuCI ---> Applications ---> luci-app-suselogin
+
+选中，并将前面的复选框变为 `<M>` 再保存编译配置
+
+接下来开始单独编译该插件的 IPK
+
+```shell
+make package/luci-app-suselogin/compile -j1 V=s
+```
+
+编译后的 ipk 在 `bin/packages/` 目录内，同时也会有 `curl` 之类的依赖，如果你的固件已经装好了依赖就只需要拷贝安装 `luci-app-suselogin_X.X-X_all.ipk` 即可。
+
+## 固件集成插件
 
 请查看 https://github.com/coolsnowwolf/lede 你必须要先知道如何编译正常的固件，才会在编译的过程中加入该扩展。
 
@@ -36,14 +68,14 @@ make menuconfig  # 进入编译设置菜单
 
 LuCI ---> Applications ---> luci-app-suselogin
 
-将其选中，使得复选框变为 <*> 再保存编译设置，随后正常编译即可。固件会自带 `luci-app-suselogin`
+将其选中，使得复选框变为 `<*>` 再保存编译设置，随后正常编译即可。固件会自带 `luci-app-suselogin`
 
 ```shell
 make -j8 download
 make -j$(($(nproc) + 1)) V=s
 ```
 
-编译前建议将 `package/base-files/files/bin/config_generate` 里面的 `generate_static_system()` 添加一项 `set system.@system[-1].cronloglevel='9'` 可以让 crontab 的日志只打印错误信息，不打印每次执行时的日志，避免污染系统日志。
+编译固件前建议将 `package/base-files/files/bin/config_generate` 里面的 `generate_static_system()` 添加一项 `set system.@system[-1].cronloglevel='9'` 可以让 crontab 的日志只打印错误信息，不打印每次执行时的日志，避免污染系统日志。
 
 ## 实现细节
 
@@ -64,6 +96,11 @@ make -j$(($(nproc) + 1)) V=s
 ```
 
 本扩展在添加删除任务时，不会影响其他 crontab 任务。
+
+## TODO
+
+- [ ] 函数式编程
+- [ ] 主脚本配置使用参数传入
 
 ## 参考
 
