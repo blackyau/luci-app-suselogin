@@ -110,6 +110,7 @@ make -j$(($(nproc) + 1)) V=s
 - [目录@陈浩南 - 在厦大宿舍安装路由器](https://catalog.chn.moe/%E6%95%99%E7%A8%8B/OpenWrt/%E5%9C%A8%E5%8E%A6%E5%A4%A7%E5%AE%BF%E8%88%8D%E5%AE%89%E8%A3%85%E8%B7%AF%E7%94%B1%E5%99%A8/)
 - [OpenWrt@Documentation - System configuration /etc/config/system](https://openwrt.org/docs/guide-user/base-system/system_configuration)
 - [OpenWrt@Documentation - Init Scripts](https://openwrt.org/docs/techref/initscripts)
+- [OpenWrt@Documentation - NTP client / NTP server](https://openwrt.org/docs/guide-user/services/ntp/client-server)
 - [askubuntu@Greg Hanis - How to remove or delete single cron job using linux command?
 ](https://askubuntu.com/questions/408611)
 - [stackoverflow@dchakarov - Create timestamp variable in bash script](https://stackoverflow.com/questions/17066250)
@@ -117,6 +118,8 @@ make -j$(($(nproc) + 1)) V=s
 - [stackoverflow@user0000001 - Search for a cronjob with crontab -l](https://stackoverflow.com/questions/14450866)
 - [知乎@Maxwell - 如何优雅地创建重定向路径中不存在的父目录](https://zhuanlan.zhihu.com/p/61890472)
 - [博客园@程默 - linux shell 时间运算以及时间差计算方法](https://www.cnblogs.com/chengmo/archive/2010/07/13/1776473.html)
+- [橙子_MAX的个人博客 - 【教程笔记】用OpenWRT单独编译ipk插件](https://www.maxlicheng.com/openwrt/42.html)
+- [Xavier Wang - 校园网禁止多终端共享上网解决方案](https://www.xavier.wang/post/45-suck-shit-lan/)
 
 ## License
 
