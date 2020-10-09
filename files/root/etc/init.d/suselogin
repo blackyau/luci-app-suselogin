@@ -3,7 +3,7 @@
 # Copyright 2020 BlackYau <blackyau426@gmail.com>
 # GNU General Public License v3.0
 
-START=50
+START=99
 
 
 start()
