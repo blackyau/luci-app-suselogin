@@ -112,8 +112,7 @@ make -j$(($(nproc) + 1)) V=s
 - [OpenWrt@Documentation - System configuration /etc/config/system](https://openwrt.org/docs/guide-user/base-system/system_configuration)
 - [OpenWrt@Documentation - Init Scripts](https://openwrt.org/docs/techref/initscripts)
 - [OpenWrt@Documentation - NTP client / NTP server](https://openwrt.org/docs/guide-user/services/ntp/client-server)
-- [askubuntu@Greg Hanis - How to remove or delete single cron job using linux command?
-](https://askubuntu.com/questions/408611)
+- [askubuntu@Greg Hanis - How to remove or delete single cron job using linux command?](https://askubuntu.com/questions/408611)
 - [stackoverflow@dchakarov - Create timestamp variable in bash script](https://stackoverflow.com/questions/17066250)
 - [stackoverflow@Joe Casadonte - How do I create a crontab through a script](https://stackoverflow.com/questions/4880290)
 - [stackoverflow@user0000001 - Search for a cronjob with crontab -l](https://stackoverflow.com/questions/14450866)
