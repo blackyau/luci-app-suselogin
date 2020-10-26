@@ -65,9 +65,9 @@ start()
 		# check the online status
 		captiveReturnCode=`curl -s -I -m 10 -o /dev/null -s -w %{http_code} http://www.google.cn/generate_204`
 		if [ "$captiveReturnCode" = "204" ]; then
-			echo "$(date "+%Y-%m-%d %H:%M:%S"): 登录成功!" >> /tmp/log/suselogin/suselogin.log
 			ntpd -n -q -p ntp1.aliyun.com  # 登录成功后校准时间
 			wait  # 等待校准完毕
+			echo "$(date "+%Y-%m-%d %H:%M:%S"): 登录成功!" >> /tmp/log/suselogin/suselogin.log
 			echo -n "$(date +%s)" > /tmp/log/suselogin/last_time
 		else
 			echo -n "$(date "+%Y-%m-%d %H:%M:%S"): 登录失败,错误信息: " >> /tmp/log/suselogin/suselogin.log
