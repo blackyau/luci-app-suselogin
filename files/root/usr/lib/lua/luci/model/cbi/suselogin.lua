@@ -25,9 +25,12 @@ isp:value("%25E7%25A7%25BB%25E5%258A%25A8", translate("移动互联网"))
 isp:value("%25E6%25A0%25A1%25E5%259B%25AD%25E7%25BD%2591", translate("校园网"))
 isp:value("%25E8%2581%2594%25E9%2580%259A", translate("联通互联网"))
 
-interval = s:option(Value, "interval", translate("间隔时间"), translate("每隔多少时间(≥5)检测一下网络是否连接正常，如果网络异常则会尝试连接(单位:分钟)"))
-interval.default = 30
-interval.datatype = "min(5)"
+interval = s:option(Value, "interval", translate("间隔时间"), translate("每隔多少时间(≥1)检测一下网络是否连接正常，如果网络异常则会尝试连接(单位:分钟)"))
+interval.default = 5
+interval.datatype = "min(1)"
+
+auto_offline = s:option(Flag, "auto_offline", translate("自动下线"), translate("启用后，如果有新设备连接路由器则会将网络下线重新登录一次，可减少因为多终端设备在线而导致的账号封禁（会导致网络波动游戏玩家慎用）"))
+auto_offline.rmempty = false
 
 success = s:option(DummyValue,"opennewwindow",translate("认证页面"))
 success.description = translate("<input type=\"button\" class=\"cbi-button cbi-button-save\" value=\"打开认证页\" onclick=\"window.open('http://10.23.2.4/eportal/success.jsp')\" /><input type=\"button\" class=\"cbi-button cbi-button-save\" value=\"打开自助服务\" onclick=\"window.open('http://10.23.2.6:8080/selfservice')\" /><br />可查看认证状态和管理在线设备")

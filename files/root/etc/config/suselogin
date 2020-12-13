@@ -3,4 +3,5 @@ config login
 	option username ''
 	option password ''
 	option isp ''
-	option interval '30'
+	option interval '5'
+	option auto_offline '0'
