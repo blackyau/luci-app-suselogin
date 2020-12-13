@@ -2,9 +2,9 @@
 
 适用于 [四川轻化工大学](http://www.suse.edu.cn/) [锐捷网络](http://www.ruijie.com.cn/) Web 网络认证系统，可以自动连接网络，也可以通过设定的时间检测网络连接状态并自动重连。
 
-![main](./main.jpg)
+![插件主页截图](https://i.loli.net/2020/12/13/fgeaURwjbLT1odS.png)
 
-![log](./log.jpg)
+![插件运行日志截图](https://i.loli.net/2020/12/13/XQ7q1FagVTm6LrO.png)
 
 ## 快速开始
 
@@ -74,8 +74,6 @@ LuCI ---> Applications ---> luci-app-suselogin
 make -j8 download
 make -j$(($(nproc) + 1)) V=s
 ```
-
-编译固件前建议将 `package/base-files/files/bin/config_generate` 里面的 `generate_static_system()` 添加一项 `set system.@system[-1].cronloglevel='9'` 可以让 crontab 的日志只打印错误信息，不打印每次执行时的日志，避免污染系统日志。
 
 ## 实现细节
 
