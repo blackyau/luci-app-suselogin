@@ -103,15 +103,17 @@ echo $$ > $pidpath
 
 echo "$(date "+%Y-%m-%d %H:%M:%S"): 进程已启动 pid:$(cat $pidpath)" > ${logfile}
 
-while [ $enable -eq 1 ]; do
-	up
-	wait
-	if [ $auto_offline -eq 1 ]; then
-		tmp_count=$(check)
-		if [ $tmp_count -gt $count ]; then  # 如果当前已连接设备数，超过了上一次判断时的已连接设备数，就开始自动退出登录
-			echo "$(date "+%Y-%m-%d %H:%M:%S"): 当前已连接$tmp_count个设备, 上次检测时有$count个设备，开始退出登录" >> ${logfile} && logout
+while [ $enable -eq 1 ]; do  # 已启用脚本
+	tmp_count=$(check)
+	if [ $tmp_count -gt 0 ]; then  # 已连接的设备>0才会进行下面的操作
+		up
+		wait
+		if [ $auto_offline -eq 1 ]; then
+			if [ $tmp_count -gt $count ]; then  # 如果当前已连接设备数，超过了上一次判断时的已连接设备数，就开始自动退出登录
+				echo "$(date "+%Y-%m-%d %H:%M:%S"): 当前已连接$tmp_count个设备, 上次检测时有$count个设备，开始退出登录" >> ${logfile} && logout
+			fi
+			count=$tmp_count  # 连接设备变少了也要记录
 		fi
-		count=$tmp_count  # 连接设备变少了也要记录
 	fi
 	reducelog
 	sleep $interval
