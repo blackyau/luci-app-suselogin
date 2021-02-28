@@ -20,10 +20,10 @@ pass.password = true
 pass.rmempty = false
 
 isp = s:option(ListValue, "isp", translate("运营商"))
-isp:value("%25E7%2594%25B5%25E4%25BF%25A1", translate("电信互联网"))
-isp:value("%25E7%25A7%25BB%25E5%258A%25A8", translate("移动互联网"))
-isp:value("%25E6%25A0%25A1%25E5%259B%25AD%25E7%25BD%2591", translate("校园网"))
-isp:value("%25E8%2581%2594%25E9%2580%259A", translate("联通互联网"))
+isp:value("%E5%AE%9C%E5%AE%BE%E7%94%B5%E4%BF%A1", translate("宜宾电信互联网"))
+isp:value("%E5%AE%9C%E5%AE%BE%E7%A7%BB%E5%8A%A8", translate("宜宾移动互联网"))
+isp:value("%E6%A0%A1%E5%9B%AD%E7%BD%91", translate("校园网"))
+isp:value("%E5%AE%9C%E5%AE%BE%E8%81%94%E9%80%9A", translate("宜宾联通互联网"))
 
 interval = s:option(Value, "interval", translate("间隔时间"), translate("每隔多少时间(≥1)检测一下网络是否连接正常，如果网络异常则会尝试连接(单位:分钟)"))
 interval.default = 5
